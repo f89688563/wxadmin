@@ -1,0 +1,28 @@
+<div class="ui-g" [@flyIn]>
+	<div class="ui-g-10">
+		<div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+			<a routerLink="0">
+		    	<i class="fa fa-plus"></i> 添加
+		    </a>
+		</div>
+		<p-dataTable [value]="lists">
+		    <p-column 
+		    	*ngFor="let col of cols"
+		    	[field]="col.field"
+		    	[header]="col.header">
+		    	<ng-template *ngIf="col.field==='name'" let-item="rowData" pTemplate="body">
+		    		<a routerLink="/gzh/config/{{item['id']}}">{{item[col.field]}}</a>
+		    	</ng-template>
+		    	<ng-template *ngIf="col.field==='type'" let-item="rowData" pTemplate="body">
+		    		{{types[item[col.field]]}}
+		    	</ng-template>
+		    	<ng-template *ngIf="col.field==='updated_at'" let-item="rowData" pTemplate="body">
+		    		{{item[col.field]*1000|date:'yy-MM-dd HH:mm'}}
+		    	</ng-template>
+		    </p-column>
+		</p-dataTable>
+	</div>
+	<div class="ui-g-2">
+		<app-gzh-menu></app-gzh-menu>
+	</div>
+</div>

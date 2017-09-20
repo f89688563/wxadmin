@@ -1,0 +1,105 @@
+<div class="ui-g" [@flyIn]>
+<p-growl [(value)]="msgs"></p-growl>
+    <div class="ui-g-10">
+	    <div class="ui-g-6">
+			<div class="wx-box">
+				<p>Todo: 个性化菜单</p>
+				<div class="fixed-bottom ui-g">
+					<div class="ui-g-4 item" *ngFor="let item of buttons; index as i">
+						<span 
+							(click)="showItem(item, i)"
+							*ngIf="item['sub_button'] && item['sub_button'].length>0">
+							{{item['name']}}
+						</span>
+						<span
+							*ngIf="item['sub_button'] && item['sub_button'].length===0"
+							(click)="showItem(item, i)">
+							{{item['name']}}
+						</span>
+						<ul class="sub" [class.hidden]="i!==index">
+							<li (click)="addButton(i)" *ngIf="item['sub_button'] && item['sub_button'].length<5">+</li>
+							<li *ngFor="let sub of item['sub_button']" (click)="showItem(sub)">
+								{{sub['name']}}
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+	    </div>
+	    <div class="ui-g-6">
+	    	<div class="form">
+		    	<div class="form-group">
+			    	<label class="ui-g-3 control-label"> name </label>
+			        <div class="ui-g-9">
+			            <input type="text" class="form-control" [(ngModel)]="selected['name']" />
+			        </div>
+		    	</div>
+		    	<div class="form-group">
+			    	<label class="ui-g-3 control-label"> type </label>
+			        <div class="ui-g-9">
+			            <select class="form-control" (change)="changeType()" [(ngModel)]="selected['type']">
+			            	<option *ngFor="let item of type" [selected]="selected['type']==item['name']" value="{{item['name']}}">{{item['value']}}</option>
+			            </select>
+			        </div>
+		    	</div>
+		    	<!-- click start -->
+		    	<div *ngIf="selected['type']|findIn:keyItems">
+		    		<div class="form-group">
+		    			<label class="ui-g-3 control-label">key</label>
+		    			<div class="ui-g-9">
+		    				<input type="text" class="form-control" [(ngModel)]="selected['key']">
+		    			</div>
+		    		</div>
+		    	</div>
+		    	<!-- click end -->
+		    	<!-- view start -->
+		    	<div *ngIf="selected['type']==='view'">
+		    		<div class="form-group">
+				    	<label class="ui-g-3 control-label"> url </label>
+				        <div class="ui-g-9">
+				            <input type="text" class="form-control" [(ngModel)]="selected['url']" />
+				        </div>
+			    	</div>
+		    	</div>
+		    	<!-- view end -->
+		    	<!-- miniprogram start -->
+		    	<div *ngIf="selected['type']==='miniprogram'">
+			    	<div class="form-group">
+				    	<label class="ui-g-3 control-label"> appid </label>
+				        <div class="ui-g-9">
+				            <input type="text" class="form-control" [(ngModel)]="selected['appid']" />
+				        </div>
+			    	</div>
+			    	<div class="form-group">
+				    	<label class="ui-g-3 control-label"> pagepath </label>
+				        <div class="ui-g-9">
+				            <input type="text" class="form-control" [(ngModel)]="selected['pagepath']" />
+				        </div>
+			    	</div>
+			    	<div class="form-group">
+				    	<label class="ui-g-3 control-label"> url </label>
+				        <div class="ui-g-9">
+				            <input type="text" class="form-control" [(ngModel)]="selected['url']" />
+				        </div>
+			    	</div>
+		    	</div>
+		    	<!-- miniprogram end -->
+		    	<!-- media_id start -->
+		    	<div *ngIf="selected['type']|findIn:mediaIdItems">
+		    		<div class="form-group">
+				    	<label class="ui-g-3 control-label"> media_id </label>
+				        <div class="ui-g-9">
+				            <input type="text" class="form-control" [(ngModel)]="selected['media_id']" />
+				        </div>
+			    	</div>
+		    	</div>
+	    	</div>
+	    </div>
+	    <div class="ui-g-12">
+	    	<button (click)="save()" class="btn btn-success">保存</button>
+	    </div>
+    </div>
+    <div class="ui-g-2">
+		<app-gzh-menu></app-gzh-menu>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="ui-g" [@flyIn]>
+	<div class="ui-g-10">
+		<div class="select-button">
+			<a *ngFor="let item of selectType" [routerLink]="['./', {type: item.value}]" class="btn btn-success">
+				{{item.name}}
+			</a>
+		</div>
+		<p-dataTable [value]="items" [tableStyleClass]="'center'">
+		    <p-header>素材--{{type}}</p-header>
+		    <p-column field="media_id" header="media_id"></p-column>
+		    <p-column field="name" header="name" *ngIf="type!=='news'"></p-column>
+<!-- 		    <p-column field="url" header="img" *ngIf="type==='image'">
+		    	<ng-template let-col let-item="rowData" pTemplate="body">
+		    		<img class="img-min" src="{{item[col.field]}}">
+		        </ng-template>
+		    </p-column> -->
+		    <p-column field="content" header="content" *ngIf="type==='news'">
+		    	<ng-template let-col let-item="rowData" pTemplate="body">
+		            <span>{{item[col.field]['news_item'][0]['title']}}</span>
+		        </ng-template>
+		    </p-column>
+		</p-dataTable>
+		<p-paginator rows="10" totalRecords="{{totalRecords}}" [rowsPerPageOptions]="[10,20,30]" (onPageChange)="paginate($event)"></p-paginator>
+	</div>
+	<div class="ui-g-2">
+		<app-gzh-menu></app-gzh-menu>
+	</div>
+</div>

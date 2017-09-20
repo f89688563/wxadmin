@@ -1,0 +1,46 @@
+.mask {
+    position: fixed;
+    z-index: 1000;
+    top: 50px;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: #888;
+    opacity: .7;
+}
+/* animation start */
+.loading {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    z-index: 1001;
+    animation:mymove 3s infinite;
+    -moz-animation:mymove 3s infinite; /* Firefox */
+    -webkit-animation:mymove 3s infinite; /* Safari and Chrome */
+    -o-animation:mymove 3s infinite; /* Opera */
+}
+
+@keyframes mymove
+{
+    from    { transform: rotate(0); }
+    to      { transform: rotate(360deg); }
+}
+
+@-moz-keyframes mymove /* Firefox */
+{
+    from    { transform: rotate(0); }
+    to      { transform: rotate(360deg); }
+}
+
+@-webkit-keyframes mymove /* Safari 和 Chrome */
+{
+    from    { transform: rotate(0); }
+    to      { transform: rotate(360deg); }
+}
+
+@-o-keyframes mymove /* Opera */
+{
+    from    { transform: rotate(0); }
+    to      { transform: rotate(360deg); }
+}
+/* animation end */
