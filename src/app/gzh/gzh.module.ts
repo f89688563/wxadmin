@@ -7,7 +7,8 @@ import {
 	GrowlModule,
   DataTableModule,
   PaginatorModule,
-  DropdownModule
+  DropdownModule,
+  DialogModule
 } 								from 'primeng/primeng';
 
 import { ShareModule }    from '../share/share.module';
@@ -32,6 +33,7 @@ import { GzhConfigEditComponent } from './gzh-config/gzh-config-edit/gzh-config-
     DataTableModule,
     PaginatorModule,
     DropdownModule,
+    DialogModule,
     ShareModule
   ],
   providers: [

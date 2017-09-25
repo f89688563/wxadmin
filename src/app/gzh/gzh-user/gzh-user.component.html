@@ -1,8 +1,69 @@
 <div class="ui-g" [@flyIn]>
 	<div class="ui-g-10">
-		user
+		<p-dataTable [value]="lists" resizableColumns="true">
+		    <p-column 
+		    	*ngFor="let col of cols"
+		    	[field]="col.field"
+				[header]="col.header">
+				<ng-template *ngIf="col.field==='sex'" let-item="rowData" pTemplate="body">
+					{{gender[item[col.field]]}}
+				</ng-template>
+		    	<ng-template *ngIf="col.field==='subscribe_time'" let-item="rowData" pTemplate="body">
+		    		{{item[col.field] ? (item[col.field]*1000|date:'yy-MM-dd HH:mm') : '-'}}
+				</ng-template>
+				<ng-template *ngIf="col.field==='operation'" let-item="rowData" pTemplate="body">
+					<a href="javascript:;" (click)="show(item['openid'])">微信详细信息</a>
+		    	</ng-template>
+		    </p-column>
+		</p-dataTable>
 	</div>
 	<div class="ui-g-2">
 		<app-gzh-menu></app-gzh-menu>
 	</div>
 </div>
+<p-dialog header="微信资料" [(visible)]="display" modal="modal" width="500" [responsive]="true">
+	<div class="ui-g">
+		<!-- <div class="form-group">
+			<label class="ui-g-5 control-label"> openid </label>
+			<div class="ui-g-7">
+				<input type="text" class="form-control" value="{{info['openid']}}" readonly />
+			</div>
+		</div> -->
+		<div class="form-group">
+			<label class="ui-g-5 control-label"> 昵称 </label>
+			<div class="ui-g-7">
+				<input type="text" class="form-control" value="{{info['nickname']}}" readonly />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="ui-g-5 control-label"> 性别 </label>
+			<div class="ui-g-7">
+				<input type="text" class="form-control" value="{{gender[info['sex']]}}" readonly />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="ui-g-5 control-label"> 国家 </label>
+			<div class="ui-g-7">
+				<input type="text" class="form-control" value="{{info['country']}}" readonly />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="ui-g-5 control-label"> 省份 </label>
+			<div class="ui-g-7">
+				<input type="text" class="form-control" value="{{info['province']}}" readonly />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="ui-g-5 control-label"> 标记 </label>
+			<div class="ui-g-7">
+				<input type="text" class="form-control" value="{{info['remark']}}" readonly />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="ui-g-5 control-label"> 关注时间 </label>
+			<div class="ui-g-7">
+				<input type="text" class="form-control" value="{{info['subscribe_time']*1000|date:'yyyy-MM-dd HH:mm'}}" readonly />
+			</div>
+		</div>
+	</div>
+</p-dialog>

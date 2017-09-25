@@ -5,7 +5,7 @@
 		    	<i class="fa fa-plus"></i> 添加
 		    </a>
 		</div>
-		<p-dataTable [value]="lists">
+		<p-dataTable [value]="lists" resizableColumns="true">
 		    <p-column 
 		    	*ngFor="let col of cols"
 		    	[field]="col.field"

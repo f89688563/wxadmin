@@ -12,16 +12,48 @@ import { LoadingService }		from '../../share/loading/loading.service';
 })
 export class GzhUserComponent implements OnInit {
 
-  	constructor(
-  		public as: ApiService,
-  		public ls: LoadingService
-  	) { }
+	lists: any[] = []
+	cols = [
+		{header: 'id', field: 'id'},
+		{header: 'openid', field: 'openid'},
+		{header: '昵称', field: 'nickname'},
+		{header: '性别', field: 'sex'},
+		{header: '关注时间', field: 'subscribe_time'},
+		{header: '操作', field: 'operation'}
+	]
+	gender = ["未知", "男", "女"]
+	display: boolean = false
+	info: any = {}
 
-  	ngOnInit() {
-  	}
+	constructor(
+		public as: ApiService,
+		public ls: LoadingService
+	) { }
 
-  	loadItems() {
-  		this.as.get('gzh/user')
-  	}
+	ngOnInit() {
+    this.loadData()
+	}
+
+	show(id: string) {
+		let loading = this.ls.loading(5000)
+		
+		this.as.get(`gzh/user/wxinfo/${id}`)
+						.subscribe( res => {
+							console.log(res)
+							this.info = res
+							loading.onHide()
+							this.display = true
+						} )
+	}
+
+  loadData() {
+		let loading;
+		setTimeout( () => loading = this.ls.loading(5000), 100 )
+    this.as.get('gzh/user')
+        .subscribe( res => {
+					loading.onHide()
+					this.lists = res['lists']
+				} )
+	}
 
 }
