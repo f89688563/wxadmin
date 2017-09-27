@@ -13,6 +13,7 @@
 				</ng-template>
 				<ng-template *ngIf="col.field==='operation'" let-item="rowData" pTemplate="body">
 					<a href="javascript:;" (click)="show(item['openid'])">微信详细信息</a>
+					<a href="javascript:;" (click)="addTag(item['openid'])">添加标签</a>
 		    	</ng-template>
 		    </p-column>
 		</p-dataTable>
@@ -21,6 +22,7 @@
 		<app-gzh-menu></app-gzh-menu>
 	</div>
 </div>
+<p-growl [(value)]="msgs"></p-growl>
 <p-dialog header="微信资料" [(visible)]="display" modal="modal" width="500" [responsive]="true">
 	<div class="ui-g">
 		<!-- <div class="form-group">
@@ -66,4 +68,16 @@
 			</div>
 		</div>
 	</div>
+</p-dialog>
+<p-dialog header="编辑标签" [(visible)]="displayLabel" modal="modal" width="300" [responsive]="true">
+	<div class="form-group">
+		<label>标签名</label>
+		<select class="form-control" [(ngModel)]="tagId">
+			<option *ngFor="let item of tags" value="{{item.id}}">{{item.name}}</option>
+		</select>
+	</div>
+	<p-footer>
+		<button type="button" class="btn btn-primary btn-sm" [disabled]="disabledLabel" (click)="setTag()">保存</button>
+		<button type="button" class="btn btn-default btn-sm" (click)="displayLabel=false">取消</button>
+	</p-footer>
 </p-dialog>

@@ -1,11 +1,26 @@
 <div class="ui-g" [@flyIn]>
-<p-growl [(value)]="msgs"></p-growl>
     <div class="ui-g-10">
 	    <div class="ui-g-6">
 			<div class="wx-box">
-				<p>Todo: 个性化菜单</p>
+				<div class="radio">
+					<div class="form-group">
+						<div class="">
+							<select class="form-control" (change)="changeButtonType()" [(ngModel)]="buttonType">
+								<option value="1">普通菜单</option>
+								<option value="2">个性化菜单</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group" *ngIf="buttonType==2">
+						<div class="">
+							<select class="form-control" (change)="changeTag()" [(ngModel)]="tagId">
+								<option *ngFor="let item of tags" value="{{item['id']}}">{{item['name']}}</option>
+							</select>
+						</div>
+					</div>
+				</div>
 				<div class="fixed-bottom ui-g">
-					<div class="ui-g-4 item" *ngFor="let item of buttons; index as i">
+					<div class="ui-g-4 item" *ngFor="let item of selectedButtons; index as i">
 						<span 
 							(click)="showItem(item, i)"
 							*ngIf="item['sub_button'] && item['sub_button'].length>0">
@@ -103,3 +118,4 @@
 		<app-gzh-menu></app-gzh-menu>
     </div>
 </div>
+<p-growl [(value)]="msgs"></p-growl>

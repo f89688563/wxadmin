@@ -1,0 +1,24 @@
+<div class="ui-g" [@flyIn]>
+  <div class="ui-g-10 tags">
+    <span class="ui-g-3" *ngFor="let item of lists">
+      <a href="javascript:;" (click)="edit(item)">{{item.name}}({{item.count}})</a>
+      <a class="right" href="javascript:;" (click)="del(item)"><i class="fa fa-fw fa-close"></i></a>
+    </span>
+    <span class="ui-g-3"><a href="javascript:;" (click)="edit()">+</a></span>
+  </div>
+  <div class="ui-g-2">
+      <app-gzh-menu></app-gzh-menu>
+  </div>
+</div>
+<p-growl [(value)]="msgs"></p-growl>
+<p-dialog header="编辑标签" [(visible)]="display" modal="modal" width="300" [responsive]="true">
+  <div class="form-group">
+    <label>标签名</label>
+    <input type="text" class="form-control" placeholder="请输入标签名" [(ngModel)]="selectedItem.name">
+  </div>
+  <p-footer>
+      <button type="button" class="btn btn-primary btn-sm" [disabled]="disabled" (click)="save()">保存</button>
+      <button type="button" class="btn btn-default btn-sm" (click)="display=false">取消</button>
+  </p-footer>
+</p-dialog>
+<p-confirmDialog></p-confirmDialog>
